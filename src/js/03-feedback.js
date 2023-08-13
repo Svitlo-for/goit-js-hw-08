@@ -20,17 +20,24 @@ function onInput() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 };
 
+const storageData = localStorage.getItem(STORAGE_KEY);
+
 function onSubmit(event) {
     event.preventDefault();
+  
+    if (storageData) {
+    const parseData = JSON.parse(storageData);
+    console.log(parseData);
+    };
     localStorage.removeItem(STORAGE_KEY);
     refs.form.reset();
 };
 
 function fromLocalStorage() {
-    const defaultValue = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const defaultValue = JSON.parse(storageData);
     if (!defaultValue) {
         return;
-    }
+    };
     refs.input.value = defaultValue.email || "";
     refs.textarea.value = defaultValue.message || "";
 };
