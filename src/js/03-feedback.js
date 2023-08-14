@@ -6,8 +6,9 @@ const refs = {
     textarea: document.querySelector(".feedback-form textarea"),
 };
 
-fromLocalStorage();
+// fromLocalStorage();
 const STORAGE_KEY = "feedback-form-state";
+
 
 refs.form.addEventListener("submit", onSubmit);
 refs.form.addEventListener("input", throttle(onInput, 500));
@@ -22,6 +23,7 @@ function onInput() {
 
 const storageData = localStorage.getItem(STORAGE_KEY);
 
+
 function onSubmit(event) {
     event.preventDefault();
   
@@ -34,13 +36,16 @@ function onSubmit(event) {
 };
 
 function fromLocalStorage() {
-    const defaultValue = JSON.parse(storageData);
-    if (!defaultValue) {
-        return;
-    };
-    refs.input.value = defaultValue.email || "";
-    refs.textarea.value = defaultValue.message || "";
+    if (storageData) {
+        const defaultValue = JSON.parse(storageData);
+        if (!defaultValue) {
+            return;
+        };
+        refs.input.value = defaultValue.email || "";
+        refs.textarea.value = defaultValue.message || "";
+    }
 };
+fromLocalStorage();
 
 ////////////////////////////////////////////////////////
 // const form = document.querySelector(".feedback-form");
